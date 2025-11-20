@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Home - Online Bookstore</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<div class="container center">
+  <h1 class="page-title">Welcome to Online Bookstore</h1>
+  <p>
+    <a th:href="@{/books}" class="btn">Browse Books</a>
+    <a th:href="@{/login}" class="btn ghost">Login</a>
+  </p>
+</div>
+
+</body>
+</html>

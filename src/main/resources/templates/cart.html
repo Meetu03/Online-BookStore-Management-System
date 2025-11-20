@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Your Cart</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<div class="container">
+  <div class="card">
+    <h2 class="page-title">Your Cart</h2>
+
+    <div>
+      <div class="cart-item" th:each="item : ${cart}">
+        <div>
+          <strong th:text="${item.book.title}">Title</strong>
+          <div class="muted" th:text="${item.book.author}">Author</div>
+        </div>
+        <div>
+          <span> x <span th:text="${item.quantity}">1</span></span>
+          <div class="price">₹<span th:text="${item.book.price}">0.00</span></div>
+          <div><a th:href="@{|/cart/remove/${item.id}|}" class="nav-link">Remove</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a th:href="@{/books}" class="btn ghost">Continue shopping</a>
+	  <a th:href="@{/orders/place}" class="btn">Place Order</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

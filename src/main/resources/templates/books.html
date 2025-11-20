@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Books</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<!-- use full fragment expression to avoid deprecation warning -->
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+  <h1 class="page-title">Available Books</h1>
+
+  <div class="search-card card">
+    <form th:action="@{/books}" method="get">
+      <input type="text" name="q" th:value="${q}" placeholder="Search books..." />
+      <button type="submit" class="btn">Search</button>
+    </form>
+  </div>
+
+  <div class="grid">
+    <div class="book-card card" th:each="b : ${books}">
+      <div class="card-content">
+        <img th:if="${b.imageUrl}" th:src="${b.imageUrl}" alt="cover" class="book-cover"/>
+        <div class="book-info">
+          <h3 class="book-title" th:text="${b.title}">Book Title</h3>
+          <p class="book-author muted" th:text="${b.author}">Author</p>
+
+          <div class="book-meta">
+            <div class="price">
+              ₹ <span th:text="${#numbers.formatDecimal(b.price,2,2)}">0.00</span>
+            </div>
+            <div class="muted category" th:text="${b.category}">Category</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- centered action button below each card -->
+      <div class="book-actions">
+        <a th:href="@{|/cart/add?bookId=${b.id}|}" class="btn small">Add to cart</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

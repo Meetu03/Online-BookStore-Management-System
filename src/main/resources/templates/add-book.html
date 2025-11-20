@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Add Book</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+  <div class="card center-card">
+    <h2 class="page-title">Add New Book</h2>
+
+    <div th:if="${error}" class="alert error" th:text="${error}"></div>
+    <div th:if="${errors}">
+      <ul>
+        <li th:each="e : ${errors}" th:text="${e}"></li>
+      </ul>
+    </div>
+
+    <form th:action="@{/books/add}" th:object="${book}" method="post" enctype="multipart/form-data" class="form">
+      <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+      <div class="form-row">
+        <label>Title</label>
+        <input type="text" th:field="*{title}" placeholder="Title" required/>
+      </div>
+
+      <div class="form-row">
+        <label>Author</label>
+        <input type="text" th:field="*{author}" placeholder="Author" required/>
+      </div>
+
+      <div class="form-row">
+        <label>Price (₹)</label>
+        <input type="number" th:field="*{price}" step="0.01" required/>
+      </div>
+
+      <div class="form-row">
+        <label>Category</label>
+        <input type="text" th:field="*{category}" placeholder="Category"/>
+      </div>
+
+      <div class="form-row">
+        <label>Image URL (external) — optional</label>
+        <input type="text" th:field="*{imageUrl}" placeholder="http(s)://..."/>
+        <small class="muted">OR upload an image below (upload preferred)</small>
+      </div>
+
+      <div class="form-row">
+        <label>Upload Cover (optional)</label>
+        <input type="file" name="imageFile" accept="image/*" />
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn">Add Book</button>
+        <a th:href="@{/books}" class="btn ghost">Back to books</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

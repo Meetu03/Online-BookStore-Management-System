@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Your Orders</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<div class="container">
+  <div class="card">
+    <h2 class="page-title">Order History</h2>
+
+    <div th:if="${#lists.isEmpty(orders)}" class="muted center">You have no orders yet.</div>
+
+    <ul>
+      <li class="order-item" th:each="o : ${orders}">
+        <div>
+          <strong>Order #<span th:text="${o.id}">0</span></strong>
+          <div class="muted">Date: <span th:text="${o.orderDate}">-</span></div>
+        </div>
+        <div class="center">
+          <div>Amount: <span class="price">₹<span th:text="${o.totalAmount}">0.00</span></span></div>
+          <div class="muted" th:text="${o.paymentStatus}">Paid</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
